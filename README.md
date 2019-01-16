@@ -3,6 +3,8 @@
 
 基于  [高德开放平台](https://lbs.amap.com/dev/id/newuser) 的 PHP 天气信息组件。
 
+[![Build Status](https://travis-ci.org/meetabug/weather.svg?branch=master)](https://travis-ci.org/meetabug/weather)
+
 ## 安装
 
 ```sh
@@ -16,7 +18,7 @@ $ composer require meetabug/weather -vvv
 ## 使用
 
 ```php
-use Overtrue\Weather\Weather;
+use Meetabug\Weather\Weather;
 
 $key = 'xxxxxxxxxxxxxxxxxxxxxxxxxxx';
 
@@ -187,7 +189,7 @@ array | string   getWeather(string $city, string $type = 'base', string $format 
 WEATHER_API_KEY=xxxxxxxxxxxxxxxxxxxxx
 ```
 
-可以用两种方式来获取 `Overtrue\Weather\Weather` 实例：
+可以用两种方式来获取 `Meetabug\Weather\Weather` 实例：
 
 #### 方法参数注入
 
