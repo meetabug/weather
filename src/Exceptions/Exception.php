@@ -1,15 +1,16 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Administrator
- * Date: 2019/1/15
- * Time: 13:36
+
+/*
+ * This file is part of the meetabug/weather.
+ *
+ * (c) meetabug<1272526724@qq.com>
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
  */
 
 namespace Meetabug\Weather\Exceptions;
 
-
 class Exception extends \Exception
 {
-
 }
