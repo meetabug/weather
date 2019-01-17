@@ -1,13 +1,15 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Administrator
- * Date: 2019/1/16
- * Time: 10:59
+
+/*
+ * This file is part of the meetabug/weather.
+ *
+ * (c) meetabug<1272526724@qq.com>
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
  */
 
 namespace Meetabug\Weather;
-
 
 class ServiceProvider extends \Illuminate\Support\ServiceProvider
 {
@@ -15,15 +17,15 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
 
     public function register()
     {
-        $this->app->singleton(Weather::class,function (){
+        $this->app->singleton(Weather::class, function () {
             return new Weather(config('services.weather.key'));
         });
 
-        $this->app->alias(Weather::class,'weather');
+        $this->app->alias(Weather::class, 'weather');
     }
 
     public function provides()
     {
-        return [Weather::class,'weather'];
+        return [Weather::class, 'weather'];
     }
 }
