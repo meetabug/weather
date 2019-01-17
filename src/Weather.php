@@ -1,13 +1,15 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Administrator
- * Date: 2019/1/15
- * Time: 11:00
+
+/*
+ * This file is part of the meetabug/weather.
+ *
+ * (c) meetabug<1272526724@qq.com>
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
  */
 
 namespace Meetabug\Weather;
-
 
 use GuzzleHttp\Client;
 use Meetabug\Weather\Exceptions\HttpException;
@@ -16,6 +18,7 @@ use Meetabug\Weather\Exceptions\InvalidArgumentException;
 class Weather
 {
     protected $key;
+
     protected $guzzleOptions = [];
 
     public function __construct($key)
@@ -23,14 +26,15 @@ class Weather
         $this->key = $key;
     }
 
-    public function getWeather($city, $type = 'base', $format = 'json'){
+    public function getWeather($city, $type = 'base', $format = 'json')
+    {
         $url = 'https://restapi.amap.com/v3/weather/weatherInfo';
 
-        if (!\in_array(\strtolower($format),['xml','json'])){
+        if (!\in_array(\strtolower($format), ['xml', 'json'])) {
             throw new InvalidArgumentException('Invalid response format: '.$format);
         }
 
-        if (!\in_array(\strtolower($type),['base','all'])){
+        if (!\in_array(\strtolower($type), ['base', 'all'])) {
             throw new InvalidArgumentException('Invalid type value(base/all): '.$type);
         }
 
@@ -41,32 +45,34 @@ class Weather
            'extensions' => $type,
         ]);
 
-        try{
-            $response = $this->getHttpClient()->get($url,[
+        try {
+            $response = $this->getHttpClient()->get($url, [
                 'query' => $query,
             ])->getBody()->getContents();
 
-            return 'json'  === $format ? \json_decode($response,true) : $response;
-        }catch (\Exception $e){
+            return 'json' === $format ? \json_decode($response, true) : $response;
+        } catch (\Exception $e) {
             throw new HttpException($e->getMessage(), $e->getCode(), $e);
         }
     }
 
-    public function getLiveWeather($city,$format = 'json'){
-        return $this->getWeather($city,'base',$format);
-    }
-
-    public function getForecastsWeather($city,$format = 'json')
+    public function getLiveWeather($city, $format = 'json')
     {
-        return $this->getWeather($city,'all', $format);
+        return $this->getWeather($city, 'base', $format);
     }
 
-    public function getHttpClient(){
+    public function getForecastsWeather($city, $format = 'json')
+    {
+        return $this->getWeather($city, 'all', $format);
+    }
+
+    public function getHttpClient()
+    {
         return new Client($this->guzzleOptions);
     }
 
-    public function setGuzzleOptions(array $options){
+    public function setGuzzleOptions(array $options)
+    {
         $this->guzzleOptions = $options;
     }
-
 }
